@@ -1,0 +1,197 @@
+[
+  {
+    "id": "q1",
+    "question": "Which AWS service provides a fully managed, serverless, and highly available message queuing service that enables decoupling of microservices?",
+    "choices": [
+      "Amazon SNS (Simple Notification Service)",
+      "Amazon SQS (Simple Queue Service)",
+      "Amazon Kinesis Data Streams",
+      "AWS EventBridge"
+    ],
+    "correctChoiceIndex": 1,
+    "explanation": "Amazon SQS is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications. SNS is a pub/sub notification service, Kinesis is for real-time data streaming, and EventBridge is an event bus service — none of which are primarily designed for point-to-point queue-based decoupling.",
+    "relatedInfo": "Amazon SQS offers two queue types: Standard queues (maximum throughput, best-effort ordering, at-least-once delivery) and FIFO queues (exactly-once processing, strict ordering). Messages can be retained for up to 14 days, with a maximum size of 256 KB. SQS integrates natively with AWS Lambda, enabling event-driven architectures where Lambda functions are triggered automatically when messages arrive."
+  },
+  {
+    "id": "q2",
+    "question": "A company needs to store frequently accessed data with the lowest possible latency. Which AWS storage class should they use for objects in Amazon S3?",
+    "choices": [
+      "S3 Standard",
+      "S3 Standard-IA (Infrequent Access)",
+      "S3 Glacier Instant Retrieval",
+      "S3 One Zone-IA"
+    ],
+    "correctChoiceIndex": 0,
+    "explanation": "S3 Standard is designed for frequently accessed data, offering high durability (99.999999999%), availability (99.99%), and low latency. S3 Standard-IA and One Zone-IA are meant for infrequently accessed data and carry retrieval fees. S3 Glacier is an archival service and is not suitable for low-latency access.",
+    "relatedInfo": "Amazon S3 offers a range of storage classes to balance cost and access needs. S3 Intelligent-Tiering automatically moves objects between access tiers based on usage patterns without retrieval charges, making it ideal when access patterns are unknown. S3 Lifecycle policies can automate transitions between storage classes to optimize costs over time."
+  },
+  {
+    "id": "q3",
+    "question": "Which AWS service allows you to run containerized applications without managing the underlying server infrastructure?",
+    "choices": [
+      "Amazon EC2",
+      "AWS Elastic Beanstalk",
+      "AWS Fargate",
+      "Amazon EKS on EC2"
+    ],
+    "correctChoiceIndex": 2,
+    "explanation": "AWS Fargate is a serverless compute engine for containers that works with both Amazon ECS and Amazon EKS. It removes the need to provision and manage servers — you only define your tasks and Fargate handles the rest. EC2 requires server management, Elastic Beanstalk is for web applications (not purely container-focused), and EKS on EC2 still requires managing EC2 nodes.",
+    "relatedInfo": "Fargate automatically scales compute resources, manages OS patching, and allocates the right amount of CPU and memory per container task. It charges based on the vCPU and memory resources consumed by your containers. Fargate is ideal for workloads where teams want to focus on application development rather than infrastructure management."
+  },
+  {
+    "id": "q4",
+    "question": "What is the primary purpose of AWS IAM Roles compared to IAM Users?",
+    "choices": [
+      "Roles are used to grant permanent credentials to human users",
+      "Roles provide temporary credentials and can be assumed by AWS services, applications, or federated users",
+      "Roles are only used within AWS Organizations for cross-account billing",
+      "Roles replace IAM policies and define the permissions boundary for all users"
+    ],
+    "correctChoiceIndex": 1,
+    "explanation": "IAM Roles are designed to be assumed temporarily by trusted entities — such as AWS services (like EC2 or Lambda), applications, or federated users — and they provide short-lived credentials via AWS STS. Unlike IAM Users, roles do not have long-term credentials like passwords or access keys, which makes them more secure for service-to-service interactions.",
+    "relatedInfo": "A common pattern is attaching an IAM Role to an EC2 instance (instance profile) so that the application running on it can call AWS APIs without embedding static credentials. IAM Roles also enable cross-account access, allowing users or services in one AWS account to assume a role in another account. AWS recommends using roles over long-term access keys wherever possible."
+  },
+  {
+    "id": "q5",
+    "question": "Which AWS service provides a managed relational database that is compatible with MySQL and PostgreSQL but offers up to 5x the performance of MySQL?",
+    "choices": [
+      "Amazon RDS for MySQL",
+      "Amazon DynamoDB",
+      "Amazon Aurora",
+      "Amazon Redshift"
+    ],
+    "correctChoiceIndex": 2,
+    "explanation": "Amazon Aurora is a fully managed relational database engine compatible with MySQL and PostgreSQL that delivers up to 5x the throughput of standard MySQL and 3x the throughput of standard PostgreSQL. DynamoDB is a NoSQL database, Redshift is a data warehouse service, and RDS for MySQL lacks Aurora's performance optimizations.",
+    "relatedInfo": "Aurora uses a distributed, fault-tolerant storage system that automatically replicates data six ways across three Availability Zones. It supports up to 15 read replicas with minimal lag and offers Aurora Serverless for automatic, on-demand scaling. Aurora Global Databases allow low-latency global reads and fast disaster recovery across AWS Regions."
+  },
+  {
+    "id": "q6",
+    "question": "A solutions architect needs to ensure that an application remains available even if an entire AWS Availability Zone goes down. Which design approach best achieves this?",
+    "choices": [
+      "Deploy the application on a single large EC2 instance with enhanced networking",
+      "Use multiple EC2 instances within the same Availability Zone behind an ALB",
+      "Distribute EC2 instances across multiple Availability Zones behind an Application Load Balancer",
+      "Store application data in S3 and serve content through EC2 in one AZ"
+    ],
+    "correctChoiceIndex": 2,
+    "explanation": "Distributing instances across multiple Availability Zones (AZs) ensures that if one AZ experiences an outage, traffic is automatically routed to healthy instances in other AZs by the Application Load Balancer. Deploying in a single AZ — regardless of instance size or ALB — does not protect against AZ-level failures.",
+    "relatedInfo": "AWS Availability Zones are physically separate data centers within a Region, each with independent power, cooling, and networking. Best practice is to deploy across at least two AZs for high availability. Auto Scaling Groups can be configured to maintain the desired number of instances across multiple AZs automatically, replacing unhealthy instances as needed."
+  },
+  {
+    "id": "q7",
+    "question": "Which AWS service would you use to cache frequently read database query results and reduce latency for a read-heavy web application?",
+    "choices": [
+      "Amazon CloudFront",
+      "AWS Global Accelerator",
+      "Amazon ElastiCache",
+      "Amazon S3 Transfer Acceleration"
+    ],
+    "correctChoiceIndex": 2,
+    "explanation": "Amazon ElastiCache is a fully managed, in-memory caching service supporting Redis and Memcached. It is specifically designed to cache database query results, session data, and other frequently accessed data to reduce load on the database and improve application response times. CloudFront caches web content at edge locations, not database results. Global Accelerator improves routing performance, not database caching.",
+    "relatedInfo": "ElastiCache for Redis supports advanced data structures, persistence, replication, and Multi-AZ failover. ElastiCache for Memcached is simpler and suited for basic caching needs. A common pattern is the 'cache-aside' strategy: the application checks the cache first, and on a cache miss, queries the database and populates the cache for future requests."
+  },
+  {
+    "id": "q8",
+    "question": "What does Amazon CloudFront primarily provide?",
+    "choices": [
+      "A managed VPN service for securing traffic between on-premises and AWS",
+      "A content delivery network (CDN) that delivers content with low latency via edge locations",
+      "A dedicated connection service between on-premises data centers and AWS",
+      "An elastic load balancer for distributing traffic across EC2 instances"
+    ],
+    "correctChoiceIndex": 1,
+    "explanation": "Amazon CloudFront is a globally distributed content delivery network (CDN) that caches and serves content from over 400 edge locations worldwide, minimizing latency for end users. AWS Direct Connect provides dedicated network connections, AWS VPN handles encrypted tunnels, and ELB distributes application traffic — none of which are CDN services.",
+    "relatedInfo": "CloudFront integrates with AWS Shield for DDoS protection, AWS WAF for web application firewall rules, and Amazon S3 for origin storage. It supports both static and dynamic content, HTTPS with custom SSL certificates, and signed URLs/cookies for restricting access to private content. CloudFront can also be used to accelerate API requests made to API Gateway or custom origins."
+  },
+  {
+    "id": "q9",
+    "question": "Which AWS service enables you to define and provision infrastructure as code using templates written in JSON or YAML?",
+    "choices": [
+      "AWS Config",
+      "AWS CloudFormation",
+      "AWS Systems Manager",
+      "AWS OpsWorks"
+    ],
+    "correctChoiceIndex": 1,
+    "explanation": "AWS CloudFormation allows you to model, provision, and manage AWS and third-party resources using infrastructure-as-code templates written in JSON or YAML. AWS Config monitors and records resource configurations, Systems Manager provides operational tooling, and OpsWorks is a configuration management service using Chef/Puppet — none of which use JSON/YAML templates to provision infrastructure.",
+    "relatedInfo": "CloudFormation templates describe the desired state of your infrastructure as a 'stack'. CloudFormation handles dependency resolution, rollback on failure, and drift detection. AWS CDK (Cloud Development Kit) is a higher-level abstraction that synthesizes CloudFormation templates from code written in TypeScript, Python, Java, or other supported languages."
+  },
+  {
+    "id": "q10",
+    "question": "An application requires a NoSQL database that delivers single-digit millisecond performance at any scale. Which AWS service should be used?",
+    "choices": [
+      "Amazon RDS",
+      "Amazon Redshift",
+      "Amazon DynamoDB",
+      "Amazon Neptune"
+    ],
+    "correctChoiceIndex": 2,
+    "explanation": "Amazon DynamoDB is a fully managed NoSQL key-value and document database that guarantees single-digit millisecond response times at any scale. RDS is a relational database service, Redshift is an analytics data warehouse, and Neptune is a graph database — none of which are designed to deliver sub-10ms latency at massive NoSQL scale.",
+    "relatedInfo": "DynamoDB automatically replicates data across three AZs in a region and supports both on-demand and provisioned capacity modes. DynamoDB Streams captures item-level changes and can trigger Lambda functions. DynamoDB Accelerator (DAX) is an in-memory cache that reduces read latency to microseconds for read-heavy workloads."
+  },
+  {
+    "id": "q11",
+    "question": "Which type of AWS load balancer operates at Layer 7 (application layer) and supports content-based routing, such as routing based on URL path or host headers?",
+    "choices": [
+      "Classic Load Balancer (CLB)",
+      "Network Load Balancer (NLB)",
+      "Application Load Balancer (ALB)",
+      "Gateway Load Balancer (GWLB)"
+    ],
+    "correctChoiceIndex": 2,
+    "explanation": "The Application Load Balancer (ALB) operates at Layer 7 (HTTP/HTTPS) and supports advanced routing rules based on URL path, host headers, query strings, and HTTP methods. The NLB operates at Layer 4 (TCP/UDP) for ultra-low latency. The CLB supports both Layer 4 and Layer 7 but lacks the advanced routing features of ALB. GWLB is designed for deploying third-party network appliances.",
+    "relatedInfo": "ALB supports routing to multiple target groups — including EC2 instances, ECS tasks, Lambda functions, and IP addresses — from a single load balancer. It also natively integrates with AWS WAF for security filtering, supports WebSocket and HTTP/2, and provides detailed access logs and request tracing via AWS X-Ray."
+  },
+  {
+    "id": "q12",
+    "question": "What is the primary benefit of using AWS Auto Scaling for an application?",
+    "choices": [
+      "It replicates data across multiple AWS Regions automatically",
+      "It adjusts the number of compute resources in response to demand, ensuring availability and cost efficiency",
+      "It provides automatic database failover when the primary instance becomes unhealthy",
+      "It automatically deploys new versions of an application using blue/green deployments"
+    ],
+    "correctChoiceIndex": 1,
+    "explanation": "AWS Auto Scaling automatically adjusts the number of EC2 instances (or other resources) in response to real-time demand based on scaling policies. This ensures the application can handle traffic spikes (availability) while scaling in during low demand to reduce costs. Database failover is handled by RDS Multi-AZ, cross-region replication is a separate concept, and blue/green deployments are managed by services like AWS CodeDeploy.",
+    "relatedInfo": "Auto Scaling Groups (ASGs) can use target tracking, step scaling, or scheduled scaling policies. Target tracking is the simplest — for example, keeping average CPU utilization at 50%. ASGs integrate with ALB to automatically register and deregister instances from target groups. Predictive scaling uses machine learning to forecast demand and proactively scale before traffic increases."
+  },
+  {
+    "id": "q13",
+    "question": "A company wants to connect their on-premises data center to AWS using a private, dedicated network connection with consistent bandwidth and reduced latency. Which service should they use?",
+    "choices": [
+      "AWS Site-to-Site VPN",
+      "AWS Direct Connect",
+      "Amazon CloudFront",
+      "AWS Transit Gateway"
+    ],
+    "correctChoiceIndex": 1,
+    "explanation": "AWS Direct Connect provides a dedicated, private physical network connection between an on-premises data center and AWS, bypassing the public internet. This results in more consistent network performance and reduced latency. AWS Site-to-Site VPN is an encrypted tunnel over the public internet (not dedicated bandwidth). CloudFront is a CDN, and Transit Gateway connects multiple VPCs and on-premises networks but still requires an underlying connection type.",
+    "relatedInfo": "Direct Connect connections are available in speeds from 50 Mbps to 100 Gbps and are established through AWS Direct Connect Partners at co-location facilities. For higher resiliency, multiple Direct Connect connections can be used in an active-active or active-passive configuration. Direct Connect can be combined with Site-to-Site VPN as a failover path using BGP routing."
+  },
+  {
+    "id": "q14",
+    "question": "Which AWS service provides centralized logging, monitoring, and alerting for AWS resources, and allows you to set alarms on metrics?",
+    "choices": [
+      "AWS CloudTrail",
+      "AWS Config",
+      "Amazon CloudWatch",
+      "AWS Trusted Advisor"
+    ],
+    "correctChoiceIndex": 2,
+    "explanation": "Amazon CloudWatch is the primary AWS service for monitoring and observability. It collects metrics, logs, and events from AWS services and custom applications, and allows you to set alarms, create dashboards, and trigger automated actions. CloudTrail records API call history for auditing, AWS Config tracks resource configuration changes, and Trusted Advisor provides best practice recommendations.",
+    "relatedInfo": "CloudWatch Metrics are collected every minute (or every second with high-resolution metrics). CloudWatch Logs Insights allows SQL-like queries over log data. CloudWatch Alarms can trigger SNS notifications, Auto Scaling actions, or EC2 instance recovery. CloudWatch Container Insights and Lambda Insights offer specialized monitoring for containers and serverless workloads respectively."
+  },
+  {
+    "id": "q15",
+    "question": "Which AWS pricing model allows customers to commit to a consistent amount of compute usage (in $/hour) for a 1 or 3-year term in exchange for significant discounts compared to On-Demand pricing?",
+    "choices": [
+      "Spot Instances",
+      "Dedicated Hosts",
+      "Compute Savings Plans",
+      "Reserved Instances (Standard)"
+    ],
+    "correctChoiceIndex": 2,
+    "explanation": "Compute Savings Plans offer discounts of up to 66% compared to On-Demand in exchange for a commitment to a consistent amount of compute spend ($/hr) over 1 or 3 years, and they automatically apply to EC2, Fargate, and Lambda usage across regions, instance families, and OS types. Spot Instances offer the deepest discounts but can be interrupted. Dedicated Hosts are for licensing compliance. Standard Reserved Instances are locked to a specific instance type and region.",
+    "relatedInfo": "AWS offers three types of Savings Plans: Compute Savings Plans (most flexible), EC2 Instance Savings Plans (deeper discount, locked to a specific instance family and region), and SageMaker Savings Plans. Unlike Reserved Instances, Savings Plans do not require upfront capacity reservation and automatically adapt to changing workloads. AWS Cost Explorer provides Savings Plans recommendations based on your past usage."
+  }
+]
