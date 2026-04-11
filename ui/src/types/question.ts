@@ -6,8 +6,3 @@ export interface Question {
   explanation: string
   relatedInfo: string
 }
-
-export interface QuestionsResponse {
-  total: number
-  questions: Question[]
-}
