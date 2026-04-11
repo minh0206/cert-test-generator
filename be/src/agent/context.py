@@ -12,10 +12,8 @@ class Context:
     """Runtime context for the question-generation agent."""
 
     model: Annotated[str, {"__template_metadata__": {"kind": "llm"}}] = field(
-        default="groq/openai/gpt-oss-120b",
-        metadata={
-            "description": "The language model to use. Format: provider/model-name."
-        },
+        default="gemini-3.1-flash-lite-preview",
+        metadata={"description": "The language model to use."},
     )
 
     def __post_init__(self) -> None:

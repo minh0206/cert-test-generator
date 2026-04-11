@@ -47,7 +47,7 @@ EXAM_SECTION_WEIGHTS = {
     },
 }
 
-MAX_QUESTIONS_PER_LLM_CALL = 5
+MAX_QUESTIONS_PER_LLM_CALL = 20
 
 
 def _distribute_questions(
@@ -136,9 +136,8 @@ async def _generate_section_batch(
         num_questions,
     )
 
-    result: ExamOutput = await structured_model.ainvoke(
-        [{"role": "system", "content": prompt}]
-    )
+    # Gemini requires at least one non-system message in the request payload.
+    result: ExamOutput = await structured_model.ainvoke(prompt)
 
     if len(result.questions) < num_questions:
         raise ValueError(
@@ -320,7 +319,7 @@ async def main() -> None:
     agent_logger.addHandler(handler)
 
     # Create runtime context
-    context = Context(model="groq/llama-3.3-70b-versatile")
+    context = Context()
 
     # Create input state
     input_state = InputState(
